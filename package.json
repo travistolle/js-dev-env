@@ -5,11 +5,13 @@
   "scripts": {
     "prestart": "babel-node buildscripts/startMessage.js",
     "open:src": "babel-node buildscripts/srcServer.js",
-    "start": "npm-run-all --parallel open:src lint:watch",
+    "start": "npm-run-all --parallel open:src lint:watch test:watch",
     "localtunnel": "lt --port 3000 --subdomain dbenner",
     "share": "npm-run-all --parallel open:src localtunnel",
     "lint": "esw webpack.config.* src buildscripts --color",
-    "lint:watch": "npm run lint -- --watch"
+    "lint:watch": "npm run lint -- --watch",
+    "test": "mocha --reporter progress buildscripts/testSetup.js \"src/**/*.test.js\"",
+    "test:watch": "npm run test -- --watch"
   },
   "author": "Daniel Benner",
   "license": "MIT",

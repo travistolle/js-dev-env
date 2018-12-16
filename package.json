@@ -5,9 +5,11 @@
   "scripts": {
     "prestart": "babel-node buildscripts/startMessage.js",
     "open:src": "babel-node buildscripts/srcServer.js",
-    "start": "npm-run-all --parallel open:src",
+    "start": "npm-run-all --parallel open:src lint:watch",
     "localtunnel": "lt --port 3000 --subdomain dbenner",
-    "share": "npm-run-all --parallel open:src localtunnel"
+    "share": "npm-run-all --parallel open:src localtunnel",
+    "lint": "esw webpack.config.* src buildscripts --color",
+    "lint:watch": "npm run lint -- --watch"
   },
   "author": "Daniel Benner",
   "license": "MIT",
@@ -48,15 +50,5 @@
     "webpack-dev-middleware": "1.8.4",
     "webpack-hot-middleware": "2.13.0",
     "webpack-md5-hash": "0.0.5"
-  }
-  {
-    "name": "mypackage",
-    "version": "0.0.1",
-    "eslintConfig": {
-      "plugins": ["example"],
-      "env": {
-        "example/custom": true
-      }
-    }
   }
 }

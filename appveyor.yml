@@ -1,9 +1,19 @@
-image: ubuntu
+image:
+- Visual Studio 2015
 
+
+# Install scripts. (runs after repo cloning)
 install:
-- npm install
+  # install modules
+  - npm install
 
+# Post-install test scripts.
 test_script:
-- npm test
+  # Output useful info for debugging.
+  - node --version
+  - npm --version
+  # run tests
+  - npm test
 
-build: off
+  # Don't use MSbuild options
+  build: off

@@ -1,11 +1,21 @@
-image:
-- Visual Studio 2015
-
+# Test against this version of Node.js
+environment:
+  matrix:
+  # node.js
+  - nodejs_version: "10"
+  - nodejs_version: "9"
+  - nodejs_version: "8"
 
 # Install scripts. (runs after repo cloning)
 install:
+  # Get the latest stable version of Node.js or io.js
+  - ps: Install-Product node $env:nodejs_version x64
+
   # install modules
-  - npm install
+  - yarn
+
+cache:
+  - "%LOCALAPPDATA%\\Yarn"
 
 # Post-install test scripts.
 test_script:
@@ -13,7 +23,17 @@ test_script:
   - node --version
   - npm --version
   # run tests
-  - npm test
+  - npm run test
 
-  # Don't use MSbuild options
-  build: off
+# Don't actually build.
+build: off
+
+notifications:
+- provider: Email
+  to:
+  - danielbenner@gmail.com
+  subject: 'Build failed: javascript development environment'
+  message: The continuous integration build failed. See https://ci.appveyor.com/project/travistolle/js-dev-env for details.
+  on_build_success: false
+  on_build_failure: true
+  on_build_status_changed: false
